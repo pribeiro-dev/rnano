@@ -1,0 +1,34 @@
+name: Bug report
+labels: ["type:bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug! Please fill the fields below.
+  - type: input
+    id: version
+    attributes:
+      label: rnano version
+      description: Output of `rnano --version` (when available)
+  - type: textarea
+    id: env
+    attributes:
+      label: Environment
+      description: OS, terminal emulator, locale, keyboard layout
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: Set RUST_LOG=debug and attach relevant lines

@@ -1,0 +1,19 @@
+name: Feature request
+labels: ["type:feature"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / use case
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope
+      options:
+        - label: Backward compatible
+        - label: Cross‑platform
+        - label: Minimal dependencies

@@ -1,0 +1,12 @@
+# General
+.DS_Store
+Thumbs.db
+*.log
+
+# Rust (future)
+/target/
+**/*.rs.bk
+
+# Editors
+.idea/
+.vscode/
