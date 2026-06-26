@@ -2,5 +2,19 @@
 name = "rnano"
 version = "0.1.0"
 edition = "2024"
+rust-version = "1.85"
+description = "A minimal, fast, cross-platform TUI text editor inspired by nano."
+license = "MIT"
+repository = "https://github.com/pribeiro-dev/rnano"
 
 [dependencies]
+crossterm = "0.29.0"
+# Only treat '\n' as a line break; CRLF is normalized on load and restored on
+# save, which keeps the cursor/line model predictable.
+ropey = { version = "1.6.1", default-features = false, features = ["simd"] }
+unicode-width = "0.2.2"
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = true

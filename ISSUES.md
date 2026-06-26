@@ -8,15 +8,15 @@
 - [ ] CI guard & release targets
 
 ## M1 — MVP
-- [ ] Load file (UTF‑8, CRLF/LF, binary guard)
-- [ ] Buffer core + edits + tabs
-- [ ] Viewport & cursor + scroll
-- [ ] Status bar
-- [ ] Prompts (write, goto, confirm quit)
-- [ ] Atomic save + backup ~ + CRLF + perms
-- [ ] Keybindings nano‑like
-- [ ] Readonly + friendly errors
-- [ ] Tests: unit + property
+- [x] Load file (UTF‑8, CRLF/LF, binary guard)
+- [x] Buffer core + edits + tabs
+- [x] Viewport & cursor + scroll
+- [x] Status bar
+- [x] Prompts (write, confirm quit) — goto line still TODO
+- [x] Atomic save + backup ~ + CRLF + perms
+- [x] Keybindings nano‑like (core subset)
+- [x] Readonly + friendly errors
+- [x] Tests: unit (property tests still TODO)
 
 ## M2 — QoL
 - [ ] Incremental search
