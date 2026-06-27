@@ -427,6 +427,7 @@ mod tests {
     fn save_lf_only_does_not_add_crlf() {
         let path = scratch("lf_only");
         let mut b = Buffer::new(false);
+        b.eol = Eol::Lf; // explicit: test LF save regardless of platform default
         b.insert(0, "line1\nline2\n");
         b.save(&path, false).unwrap();
         let raw = fs::read(&path).unwrap();
