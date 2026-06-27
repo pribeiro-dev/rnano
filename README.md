@@ -7,21 +7,7 @@
 
 rnano is a nano-inspired editor that starts instantly, saves reliably, and gets out of your way. If you know nano, you already know rnano — the keybindings feel the same, but it adds undo/redo, syntax highlighting, multiple buffers, a config file, and mouse support without getting bloated.
 
-```
- rnano  src/main.rs *                                                   
-  1 mod buffer;                                                          
-  2 mod clipboard;                                                       
-  3 mod config;                                                          
-  4 mod editor;                                                          
-  5 mod highlight;                                                       
-  6 mod history;                                                         
-  7                                                                      
-  8 use std::path::PathBuf;                                              
-  9 use std::process::ExitCode;                                          
- 10                                                                      
- Ln 1, Col 1   LF  [1/3]                                                
- ^O Write  ^X Exit  ^G Help  ^K Cut  ^U Paste  ^W Search  ^Z Undo      
-```
+![rnano editing a Rust file with syntax highlighting](demo.svg)
 
 ---
 

@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 672 296" width="672" height="296">
+  <!-- drop shadow -->
+  <rect x="4" y="4" width="664" height="288" rx="8" fill="#000" fill-opacity="0.45"/>
+
+  <defs>
+    <clipPath id="c">
+      <rect width="664" height="288" rx="8"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#c)">
+    <!-- editor background -->
+    <rect width="664" height="288" fill="#282c34"/>
+
+    <!-- title bar -->
+    <rect width="664" height="22" fill="#21409a"/>
+    <text x="10" y="15" font-family="'JetBrains Mono','Fira Code','Cascadia Code',monospace" font-size="13" fill="#ffffff"> rnano  src/main.rs</text>
+
+    <!-- gutter separator -->
+    <line x1="41" y1="22" x2="41" y2="264" stroke="#3e4451" stroke-width="1"/>
+
+    <!-- ROW 1: mod buffer; -->
+    <text font-family="monospace" font-size="13" xml:space="preserve">
+      <tspan x="10" y="36" fill="#4b5263">  1 </tspan><tspan fill="#e5c07b">mod</tspan><tspan fill="#abb2bf"> buffer;</tspan>
+    </text>
+
+    <!-- ROW 2: mod editor; -->
+    <text font-family="monospace" font-size="13" xml:space="preserve">
+      <tspan x="10" y="56" fill="#4b5263">  2 </tspan><tspan fill="#e5c07b">mod</tspan><tspan fill="#abb2bf"> editor;</tspan>
+    </text>
+
+    <!-- ROW 3: mod highlight; -->
+    <text font-family="monospace" font-size="13" xml:space="preserve">
+      <tspan x="10" y="76" fill="#4b5263">  3 </tspan><tspan fill="#e5c07b">mod</tspan><tspan fill="#abb2bf"> highlight;</tspan>
+    </text>
+
+    <!-- ROW 4: (empty) -->
+    <text font-family="monospace" font-size="13" xml:space="preserve">
+      <tspan x="10" y="96" fill="#4b5263">  4 </tspan>
+    </text>
+
+    <!-- ROW 5: use std::path::PathBuf; -->
+    <text font-family="monospace" font-size="13" xml:space="preserve">
+      <tspan x="10" y="116" fill="#4b5263">  5 </tspan><tspan fill="#e5c07b">use</tspan><tspan fill="#abb2bf"> std::path::PathBuf;</tspan>
+    </text>
+
+    <!-- ROW 6: use std::process::ExitCode; -->
+    <text font-family="monospace" font-size="13" xml:space="preserve">
+      <tspan x="10" y="136" fill="#4b5263">  6 </tspan><tspan fill="#e5c07b">use</tspan><tspan fill="#abb2bf"> std::process::ExitCode;</tspan>
+    </text>
+
+    <!-- ROW 7: (empty) -->
+    <text font-family="monospace" font-size="13" xml:space="preserve">
+      <tspan x="10" y="156" fill="#4b5263">  7 </tspan>
+    </text>
+
+    <!-- ROW 8: fn main() -> ExitCode { -->
+    <text font-family="monospace" font-size="13" xml:space="preserve">
+      <tspan x="10" y="176" fill="#4b5263">  8 </tspan><tspan fill="#e5c07b">fn</tspan><tspan fill="#abb2bf"> main() -&gt; ExitCode {</tspan>
+    </text>
+
+    <!-- ROW 9: cursor + comment line -->
+    <rect x="72" y="183" width="8" height="15" fill="#4f98cd" fill-opacity="0.85"/>
+    <text font-family="monospace" font-size="13" xml:space="preserve">
+      <tspan x="10" y="196" fill="#4b5263">  9 </tspan><tspan fill="#5c6370">    // load config and open files</tspan>
+    </text>
+
+    <!-- ROW 10: let cfg = Config::load().unwrap_or_default(); -->
+    <text font-family="monospace" font-size="13" xml:space="preserve">
+      <tspan x="10" y="216" fill="#4b5263"> 10 </tspan><tspan fill="#abb2bf">    </tspan><tspan fill="#e5c07b">let</tspan><tspan fill="#abb2bf"> cfg = Config::load().unwrap_or_default();</tspan>
+    </text>
+
+    <!-- ROW 11: let bufs = vec![Buffer::new(false)]; -->
+    <text font-family="monospace" font-size="13" xml:space="preserve">
+      <tspan x="10" y="236" fill="#4b5263"> 11 </tspan><tspan fill="#abb2bf">    </tspan><tspan fill="#e5c07b">let</tspan><tspan fill="#abb2bf"> bufs = vec![Buffer::new(</tspan><tspan fill="#56b6c2">false</tspan><tspan fill="#abb2bf">)];</tspan>
+    </text>
+
+    <!-- status bar -->
+    <rect y="242" width="664" height="22" fill="#21409a"/>
+    <text x="10" y="257" font-family="monospace" font-size="13" fill="#ffffff"> Ln 9, Col 5   LF  [1/2]</text>
+
+    <!-- hint bar -->
+    <rect y="264" width="664" height="24" fill="#1d2127"/>
+    <text x="10" y="279" font-family="monospace" font-size="11" fill="#636d83" xml:space="preserve"> ^O Write  ^X Exit  ^G Help  ^K Cut  ^U Paste  ^W Search  ^Z Undo  ^Y Redo</text>
+  </g>
+</svg>

@@ -21,7 +21,7 @@ pub fn write(text: &str) -> bool {
             }
             return child.wait().map(|s| s.success()).unwrap_or(false);
         }
-        return false;
+        false
     }
 
     #[cfg(target_os = "windows")]
@@ -32,7 +32,7 @@ pub fn write(text: &str) -> bool {
             }
             return child.wait().map(|s| s.success()).unwrap_or(false);
         }
-        return false;
+        false
     }
 
     #[cfg(not(any(target_os = "macos", target_os = "windows")))]
@@ -63,7 +63,7 @@ pub fn read() -> Option<String> {
         if out.status.success() {
             return Some(String::from_utf8_lossy(&out.stdout).into_owned());
         }
-        return None;
+        None
     }
 
     #[cfg(target_os = "windows")]
@@ -75,7 +75,7 @@ pub fn read() -> Option<String> {
         if out.status.success() {
             return Some(String::from_utf8_lossy(&out.stdout).into_owned());
         }
-        return None;
+        None
     }
 
     #[cfg(not(any(target_os = "macos", target_os = "windows")))]
