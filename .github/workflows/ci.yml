@@ -31,3 +31,5 @@ jobs:
         run: cargo build --all --verbose
       - name: test
         run: cargo test --all -- --quiet
+      - name: release build
+        run: cargo build --release --all
