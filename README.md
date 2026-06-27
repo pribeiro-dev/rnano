@@ -1,217 +1,117 @@
 # rnano
 
-A minimal, fast, cross-platform terminal text editor inspired by **GNU nano**.
-
-**Goals:** instant startup · trustworthy saves · correct Unicode · small binary
+> A fast, friendly terminal text editor for people who just want to edit a file.
 
 [![CI](https://github.com/pribeiro-dev/rnano/actions/workflows/ci.yml/badge.svg)](https://github.com/pribeiro-dev/rnano/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+rnano is a nano-inspired editor that starts instantly, saves reliably, and gets out of your way. If you know nano, you already know rnano — the keybindings feel the same, but it adds undo/redo, syntax highlighting, multiple buffers, a config file, and mouse support without getting bloated.
+
+```
+ rnano  src/main.rs *                                                   
+  1 mod buffer;                                                          
+  2 mod clipboard;                                                       
+  3 mod config;                                                          
+  4 mod editor;                                                          
+  5 mod highlight;                                                       
+  6 mod history;                                                         
+  7                                                                      
+  8 use std::path::PathBuf;                                              
+  9 use std::process::ExitCode;                                          
+ 10                                                                      
+ Ln 1, Col 1   LF  [1/3]                                                
+ ^O Write  ^X Exit  ^G Help  ^K Cut  ^U Paste  ^W Search  ^Z Undo      
+```
+
+---
+
+## Why rnano?
+
+- **It starts instantly.** No Electron, no LSP, no plugin ecosystem to boot.
+- **It's hard to break.** Saves are atomic (temp → fsync → rename). Your file is never half-written.
+- **It handles your files.** CRLF on Windows, LF on Unix — it detects, normalises, and restores.
+- **It won't surprise you.** If you've used nano, the muscle memory is already there.
 
 ---
 
 ## Install
 
 ```sh
-cargo install --path .
+cargo install --git https://github.com/pribeiro-dev/rnano
 ```
 
-Or build from source:
+Or clone and build:
 
 ```sh
+git clone https://github.com/pribeiro-dev/rnano
+cd rnano
 cargo build --release
-# binary at target/release/rnano
+./target/release/rnano myfile.txt
 ```
 
-Requires Rust 1.85+. No system dependencies.
+Requires Rust 1.85+. Runs on Linux, macOS, and Windows. No system libraries required.
 
 ---
 
-## Usage
+## What it can do
 
-```
-rnano [OPTIONS] [FILE [FILE ...]]
-```
+**Edit**
+Undo and redo. Cut and paste. A kill ring that actually works. Type `Ctrl+Z`, get your change back. Simple.
 
-Open multiple files and switch between them with `Alt+N` / `Alt+B`.
+**Search**
+`Ctrl+W` opens incremental search — results highlight as you type. Jump forward and back through matches. Toggle case-sensitivity mid-search with `Alt+C`.
 
-| Option | Description |
-|--------|-------------|
-| `-v`, `--readonly` | Open all files read-only |
-| `-B`, `--backup` | Write `<file>~` backup before saving |
-| `-V`, `--version` | Print version and exit |
-| `-h`, `--help` | Print help and exit |
+**Multiple files**
+Open several files at once and switch between them with `Alt+N` and `Alt+B`. The status bar shows which buffer you're on.
+
+**Syntax highlighting**
+Rust, TOML, JSON, Markdown, Shell, and Python out of the box. Automatically disabled for large files so it never slows you down.
+
+**Mouse**
+Click to place your cursor. Scroll to pan. Works in most terminals.
+
+**Macros**
+`Ctrl+R` to start recording, `Ctrl+R` again to stop, `Alt+R` to replay. Good for repetitive edits.
+
+**Config**
+A single TOML file at `~/.config/rnano/config.toml`. Set your tab width, enable line numbers, pick a theme, or wire up a post-save hook (like `rustfmt %f`).
 
 ---
 
-## Keys
+## Quick reference
 
-### Navigation
-
-| Key | Action |
-|-----|--------|
-| Arrow keys | Move cursor |
-| `Home` / `End` | Start / end of line |
-| `Ctrl+A` / `Ctrl+E` | Start / end of line |
-| `PgUp` / `PgDn` | Page up / down |
-| Click (mouse) | Move cursor to position |
-| Scroll wheel | Scroll viewport |
-
-### Editing
-
-| Key | Action |
-|-----|--------|
-| `Ctrl+K` | Cut line |
-| `Ctrl+U` | Paste from kill ring |
-| `Alt+W` | Copy kill ring to OS clipboard |
-| `Alt+U` | Paste from OS clipboard |
-| `Ctrl+Z` | Undo |
-| `Ctrl+Y` | Redo |
-| `Tab` | Insert tab |
-| `Enter` | Insert newline |
-| `Backspace` / `Delete` | Delete character |
-
-### File
-
-| Key | Action |
-|-----|--------|
-| `Ctrl+O` | Write / save as (prompts for filename) |
-| `Ctrl+S` | Save to current filename |
-| `Ctrl+X` | Exit (prompts if unsaved changes) |
-
-### Search
-
-| Key | Action |
-|-----|--------|
-| `Ctrl+W` | Open incremental search |
-| `Ctrl+W` *(in search)* | Next match |
-| `Ctrl+Q` *(in search)* | Previous match |
-| `Alt+C` *(in search)* | Toggle case sensitivity |
-| `Enter` | Accept and jump to match |
-| `Esc` | Cancel search, restore cursor |
-
-### View
-
-| Key | Action |
-|-----|--------|
+| Key | What it does |
+|-----|-------------|
+| `Ctrl+O` | Save (prompts for filename if new) |
+| `Ctrl+S` | Save to current file |
+| `Ctrl+X` | Quit |
+| `Ctrl+W` | Search |
+| `Ctrl+K` / `Ctrl+U` | Cut / paste line |
+| `Ctrl+Z` / `Ctrl+Y` | Undo / redo |
+| `Ctrl+G` | Help |
 | `Ctrl+N` | Toggle line numbers |
 | `Ctrl+P` | Toggle soft wrap |
-| `Ctrl+G` | Help screen (↑↓ to scroll, any key closes) |
-| `Ctrl+C` | Show cursor position |
+| `Alt+N` / `Alt+B` | Next / previous buffer |
+| `Ctrl+R` / `Alt+R` | Record / play macro |
+| `Alt+W` / `Alt+U` | Copy / paste OS clipboard |
 
-### Buffers
-
-| Key | Action |
-|-----|--------|
-| `Alt+N` | Next buffer |
-| `Alt+B` | Previous buffer |
-
-### Macros
-
-| Key | Action |
-|-----|--------|
-| `Ctrl+R` | Start / stop recording macro |
-| `Alt+R` | Play back last macro |
+Press `Ctrl+G` inside the editor for the full list.
 
 ---
 
-## Config file
+## Config
 
-rnano reads a config file on startup:
-
-| Platform | Path |
-|----------|------|
-| Linux / macOS | `$XDG_CONFIG_HOME/rnano/config.toml` (default: `~/.config/rnano/config.toml`) |
-| Windows | `%APPDATA%\rnano\config.toml` |
-
-CLI flags override config file values.
-
-### Options
+`~/.config/rnano/config.toml` (Linux/macOS) · `%APPDATA%\rnano\config.toml` (Windows)
 
 ```toml
-tab_width         = 4      # display columns per tab stop
-line_numbers      = false  # show line-number gutter
-soft_wrap         = false  # wrap long lines at viewport width
-backup            = false  # write <file>~ before saving
-undo_depth        = 1000   # max undo history entries
-autosave_interval = 0      # autosave interval in seconds (0 = off)
-highlight_max_kb  = 512    # disable syntax highlighting above N KiB
-syntax            = true   # enable syntax highlighting
-theme             = "dark" # "dark" or "light"
-on_save_hook      = ""     # shell command after save; %f = file path
-                           # example: on_save_hook = "rustfmt %f"
+tab_width         = 4
+line_numbers      = false
+soft_wrap         = false
+backup            = false
+theme             = "dark"   # or "light"
+autosave_interval = 0        # seconds; 0 = off
+on_save_hook      = ""       # e.g. "rustfmt %f"
 ```
-
----
-
-## Features
-
-**Editing**
-- Nano-like keybindings; most muscle memory transfers directly
-- Undo/redo with configurable depth; consecutive single-char inserts coalesce into one step
-- Cut/paste kill ring; OS clipboard via `xclip`/`xsel` (Linux), `pbcopy`/`pbpaste` (macOS), `clip.exe` (Windows)
-- Session macros: record a key sequence and replay it
-
-**Files**
-- Atomic saves: write to temp → `fsync` → `rename`, preserving file permissions
-- Optional `~` backup before overwriting
-- CRLF detected on load, normalized to `\n` in memory, restored on save
-- Binary and non-UTF-8 files rejected with actionable error messages
-- Autosave to `.filename.swp` at a configurable interval
-
-**Display**
-- Syntax highlighting for Rust, TOML, JSON, Markdown, Shell, Python
-- Dark and light colour themes
-- Optional line-number gutter (dynamic width)
-- Soft-wrap toggle (disables horizontal scroll)
-- Unicode-aware: display widths via `unicode-width`, tab stop expansion
-- Highlighting auto-disabled for files above `highlight_max_kb`
-
-**Navigation**
-- Mouse support: click to position cursor, scroll wheel to pan viewport
-- Multiple buffers from the command line; ring-style switching with `Alt+N`/`Alt+B`
-- Incremental search with match highlighting and case-insensitive toggle
-
-**Automation**
-- `on_save_hook`: run any shell command after each successful save (e.g. `rustfmt %f`, `prettier --write %f`)
-
----
-
-## Design
-
-| Concern | Approach |
-|---------|----------|
-| Buffer | [`ropey`](https://crates.io/crates/ropey) rope (LF-only mode); O(log n) edits |
-| Terminal | [`crossterm`](https://crates.io/crates/crossterm) — Linux, macOS, Windows |
-| Display widths | [`unicode-width`](https://crates.io/crates/unicode-width) |
-| Config parsing | Hand-rolled TOML subset — no extra crate |
-| Clipboard | Subprocess (`xclip`/`pbcopy`/`clip`) — no extra crate |
-| Saves | Atomic: temp file → fsync → rename |
-| Line endings | CRLF ↔ LF converted at the I/O boundary only |
-
----
-
-## Roadmap
-
-| Milestone | Status |
-|-----------|--------|
-| **M1** — open · edit · save · navigate · status bar | ✅ Done |
-| **M2** — search · undo/redo · config · line numbers · soft wrap · help | ✅ Done |
-| **M5** — clipboard · mouse · multiple buffers · macros · on-save hooks | ✅ Done (preview) |
-| **M3** — legacy encodings · streaming large files | Planned |
-| **M4** — extended syntax highlighting (multi-line states, more languages) | Planned |
-
----
-
-## Development
-
-```sh
-cargo fmt --all
-cargo clippy --all-targets -- -D warnings
-cargo test --all
-cargo build --release
-cargo bench          # criterion benchmarks (benches/buffer.rs)
-```
-
-CI runs `fmt`, `clippy -D warnings`, `build`, `test`, and `release build` on Linux, macOS, and Windows against the stable toolchain.
 
 ---
 
